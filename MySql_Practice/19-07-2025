@@ -1,0 +1,91 @@
+# delete, drop and truncate
+#drop -DDL - DB, table, Column
+
+show databases;
+create database techzone;
+#drop is a permanent action
+drop database techzone;
+
+use infosys;
+show tables from infosys;
+
+create table developers(
+id int);
+
+drop table developers;
+desc employee_data;
+
+alter table employee_data add(
+country varchar(30) default 'India'
+); 
+select * from employee_data;
+
+alter table employee_data drop column country;
+
+#delete
+# delete table - deletes the information not the structure eof the table.
+
+show databases;
+use flipkart;
+show tables from flipkart;
+
+select* from staff;
+delete from staff;
+
+#delete particular 
+delete from staff where emp_id =3;
+
+delete from staff where projects_handled<5;
+
+#truncate
+#does not make changes in the structure of the table.
+truncate table staff; 
+desc staff;
+
+# we cannot rollback the transcation in truncate.
+# we ccan rollback the transcation in delete;
+# drop- it permanently deltes the complete table;
+
+# all the laptops should be connnected in the lan cable
+# only then we can perform operations like revoke & grant;
+
+#grant is to provide permission to access a particular database
+#revoke is the take back the permission or withdraw permission from the user.
+#transcation control
+#savepoint - u can save if savepoint 1,2,3 like that...
+#rollback
+#commit - want to save as a permanent change.
+
+create database techzone;
+use techzone;
+create table engineering(
+id int,
+name varchar(30)
+);
+start transaction;
+insert into engineering values (1001,'deepak');
+savepoint t11;
+insert into engineering values(1002,'vardhan');
+savepoint t12;
+
+delete from engineering where id =1002;
+select * from engineering;
+rollback to t12;
+
+select * from engineering;
+commit;
+
+use flipkart;
+select* from staff;
+select emp_name as Employee_Name from staff;
+
+desc staff;
+
+#operators logical and compar
+#and , or
+select* from staff;
+select emp_name as Employee_name from staff where projects_handled>6;
+
+#in ans not in operator
+# select * from users where 'user_id' IN (1,2,3);
+# the above query gives the rows where user_id is 1,2 or 3.
